@@ -16,15 +16,9 @@ export default function Home() {
 
   const url = `https://api.instagram.com/oauth/authorize?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=https://add-ig-content.vercel.app/&scope=user_profile,user_media&response_type=code`;
 
-  const getToken = async () => {
-    const response = await axios.post(
-      `https://api.instagram.com/oauth/access_token?client_id=${INSTAGRAM_CLIENT_ID}&client_secret=${INSTAGRAM_CLIENT_SECRET}&grant_type=authorization_code&redirect_uri=https://add-ig-content.vercel.app/&code=${code}`,
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
+  const getData = async () => {
+    const response = await axios.get(
+      `https://graph.instagram.com/{user-id}?fields=id,username&access_token={access-token}`
     );
 
     const data = await response.json();
@@ -37,7 +31,7 @@ export default function Home() {
       {!code ? (
         <a href={url}>Sign In instagram</a>
       ) : (
-        <button onClick={getToken}>Get token</button>
+        <button onClick={getData}>Get user data</button>
       )}
     </main>
   );
