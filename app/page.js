@@ -6,6 +6,8 @@ import { useSearchParams } from "next/navigation";
 export default function Home() {
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
+  const token =
+    "IGQVJVR2lWOGU2M2RLamdpc0JuVVRqNW8ySzBFaTZAVcXJUWnFNRVdHXzVYc09SZA1ZAjNG15SkJVSXc1NWpNTzJOQ1o5d3d4M1hVMEUtdHJLOWRpNVdZAbmZAxb2ZAVdVloSjFEeUZAqcjhTRklUWjRyeDJfeQZDZD";
 
   const INSTAGRAM_CLIENT_ID = "1316832365714113";
   const INSTAGRAM_CLIENT_SECRET = "024150d52dbdb4ef7c9ad9dcf10e2c6c";
@@ -14,11 +16,11 @@ export default function Home() {
   console.log("INSTAGRAM_CLIENT_ID: ", INSTAGRAM_CLIENT_ID);
   console.log("INSTAGRAM_CLIENT_SECRET: ", INSTAGRAM_CLIENT_SECRET);
 
-  const url = `https://api.instagram.com/oauth/authorize?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=https://add-ig-content.vercel.app/&scope=user_profile,user_media&response_type=code`;
+  const url = `https://api.instagram.com/oauth/authorize?client_id=${INSTAGRAM_CLIENT_ID}&redirect_uri=https://add-ig-content.vercel.app/&scope=user_profile,user_media&response_type=${token}`;
 
   const getData = async () => {
     const response = await axios.get(
-      `https://graph.instagram.com/{user-id}?fields=id,username&access_token={access-token}`
+      `https://graph.instagram.com/${INSTAGRAM_CLIENT_ID}?fields=id,media_type,media_url,username,timestamp&access_token={access-token}`
     );
 
     const data = await response.json();
