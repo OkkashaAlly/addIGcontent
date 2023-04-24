@@ -41,8 +41,9 @@ export default function Home() {
   return (
     <main>
       <div className="flex justify-center my-8">
-        {loading && <h1>Loading...</h1>}
-        {error ? (
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : error ? (
           <div>
             <h1>Something went wrong</h1>
             <p>{error.message}</p>
